@@ -4,3 +4,16 @@
 .navbar img{
     width: 150px;
 }
+.sign-in{
+    height: auto;
+    width: auto;
+    margin: auto;
+    padding: 50px;
+}
+.container1{
+    max-width: 380px;
+    min-width: 350px;
+}
+.container1 .btn{
+    width: 100% !important;
+}
