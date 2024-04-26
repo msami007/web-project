@@ -7,11 +7,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse navbars" id="navbarNav">
-                    <button type="button" class="btn btn-outline-primary m-2">Sign in</button>
-                    <button class="btn btn-primary" type="submit">Sign up</button>
+                    @if(!Auth::check() && !request()->is('signin') && !request()->is('signup'))
+                        <button type="button" class="btn btn-outline-primary m-2">Sign in</button>
+                        <button class="btn btn-primary" type="submit">Sign up</button>
+                    @endif
                 </div>
             </nav>
         </div>
     </div>
-    
 </div>

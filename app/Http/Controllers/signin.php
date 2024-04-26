@@ -9,4 +9,7 @@ class signin extends Controller
     function index(){
         return view('sign-in');
     }
+    function signup(){
+        return view('signup');
+    }
 }

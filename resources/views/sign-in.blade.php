@@ -31,8 +31,8 @@
             <div class="m-3">
                 <a style="color: black" href="#">Forgot Password?</a>
             </div>
-            <p>New to HueHub? <span><a href="#">Sign up now</a></span></p>
-            <p>This page is protected by Google reCAPTCHA to ensure you're not a bot. </p>
+            <p>New to HueHub? <span><a href="{{route('sign.up')}}">Sign up now</a></span></p>
+            <p style="font-size: small">This page is protected by Google reCAPTCHA to ensure you're not a bot. </p>
 
         </div>
     </div>
