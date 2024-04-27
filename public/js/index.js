@@ -27,12 +27,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function loadContent(content) {
-    const url = `/dashboard/${content}`;
-    fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('dashboardContent').innerHTML = html;
-        })
-        .catch(error => console.error('Error loading the content:', error));
-}
