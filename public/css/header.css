@@ -17,3 +17,33 @@
 .container1 .btn{
     width: 100% !important;
 }
+
+/* dashboard css */
+.dash-nav-item img{
+    width: 20px;
+}
+.dash-nav-item span{
+    color: black;
+    font-size: large;
+    font-weight: 600;
+}
+.dash-nav-item a{
+    padding: 0;
+    border-radius: 5px;
+}
+.dashboard-container button{
+    width: 175px !important;
+    height: 40px !important;
+}
+.dash-border{
+    border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.dash-nav-item a:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.dash-nav-item a.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+

@@ -1,6 +1,6 @@
 <div>
     <div class="container-fluid bg-light">
-        <div class="fluid-container mx-3">
+        <div class="fluid-container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
                 <a class="navbar-brand" href="#"><img src="{{asset('img/HUEHUB.png')}}" alt="logo"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

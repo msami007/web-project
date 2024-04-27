@@ -35,7 +35,7 @@
             data-logo_alignment="left">
         </div>
         <div class="m-3">
-            <p style="font-size: small">By continuing you are agring to out <span><a href="#">Terms</a></span> and <span><a href="#">conditions</a></span></p>
+            <p style="font-size: small">By creating an account, you agree to our <span><a href="#">Terms of Use</a></span>, <span><a href="#">Privacy Policy</a></span></p>
         </div>
         <p>Already Register? <span><a href="{{route('sign.in')}}">Sign in</a></span></p>
         <p style="font-size: small">This page is protected by Google reCAPTCHA to ensure you're not a bot. </p>
