@@ -19,6 +19,32 @@
 }
 
 /* dashboard css */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    height: 80vh; /* Full viewport height */
+    width: 98%; /* Full viewport width */
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up all available space left by sidebar */
+    height: 100%; /* Ensures it fills the parent container */
+}
+.content {
+    flex-grow: 1; /* Takes up all remaining space */
+    height: 100%; /* Full height */
+    overflow: hidden;
+}
 .dash-nav-item img{
     width: 20px;
 }
@@ -32,7 +58,7 @@
     border-radius: 5px;
 }
 .dashboard-container button{
-    width: 175px !important;
+    width: 180px !important;
     height: 40px !important;
 }
 .dash-border{
