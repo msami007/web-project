@@ -1,6 +1,12 @@
 .navbars{
     flex-grow: 0 !important;
 }
+.navbars a{
+    text-decoration: none;
+}
+.navbars a:hover{
+    color: white;
+}
 .navbar img{
     width: 150px;
 }

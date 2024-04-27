@@ -8,8 +8,8 @@
                 </button>
                 <div class="collapse navbar-collapse navbars" id="navbarNav">
                     @if(!Auth::check() && !request()->is('signin') && !request()->is('signup'))
-                        <button type="button" class="btn btn-outline-primary m-2">Sign in</button>
-                        <button class="btn btn-primary" type="submit">Sign up</button>
+                        <button type="button" class="btn btn-outline-primary m-2"> <a href="{{route('sign.in')}}">Sign in</a></button>
+                        <button class="btn btn-primary" type="submit"><a style="color: white" href="{{route('sign.up')}}">Sign up</a></button>
                     @endif
                 </div>
             </nav>
