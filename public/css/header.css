@@ -15,14 +15,22 @@
     width: auto;
     margin: auto;
     padding: 50px;
+    min-height: 90vh;       /* Takes at least the full height of the viewport */
+    width: 100%; 
 }
 .container1{
-    max-width: 380px;
     min-width: 350px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Example shadow for better visibility */
+    width: 100%; /* Adjust width as necessary, or set max-width for larger screens */
+    max-width: 400px;
 }
 .container1 .btn{
     width: 100% !important;
 }
+
 
 /* dashboard css */
 html, body {
@@ -79,3 +87,11 @@ html, body {
 }
 
 
+/* for errors */
+.errors{
+    color: red;
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
