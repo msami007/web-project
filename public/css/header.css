@@ -95,3 +95,51 @@ html, body {
     padding: 0;
     text-align: left;
 }
+
+/* profile picture */
+
+.show-logged {
+    display: block;
+}
+
+.link1 {
+    height: 60px;
+    line-height: 60px;
+    font-variation-settings: 'wght' 500;
+}
+.avatar--s {
+    height: 40px;
+    width: 40px;
+}
+.avatar {
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+.avatar .image {
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset rgba(0, 0, 0, 0.075) 0 0 0 1px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+#profileImage {
+    /* width: 55px; */
+    /* height: 55px; */
+    /* border-radius: 50%; */
+    background: #512DA8;
+    font-size: 39px;
+    color: #fff;
+    /* display: flex; */
+    text-align: center;
+    cursor: pointer;
+    line-height: 33px;
+    margin: 0px 0;
+    /* justify-content: center; */
+}

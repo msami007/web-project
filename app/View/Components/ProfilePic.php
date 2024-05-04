@@ -4,16 +4,17 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use app\Models\user;
 use Illuminate\View\Component;
 
 class ProfilePic extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+    
+
+    
     public function __construct()
     {
-        //
+        
     }
 
     /**
