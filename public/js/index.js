@@ -27,3 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// profile picture 
+fetch('/api/user')
+    .then(response => response.json())
+    .then(user => {
+        console.log('User ID:', user.id, 'User Name:', user.name);
+        var name = user.name;
+        $(document).ready(function(){
+            var initials = name.charAt(0); 
+            $('#profileImage').text(initials); 
+        });
+    })
+    .catch(error => console.error('Error fetching user data:', error));
+
+
+
+
+
