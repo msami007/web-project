@@ -129,17 +129,48 @@ html, body {
     height: 100%;
     border-radius: 50%;
 }
+.bg{
+    background: transparent !important;
+}
 #profileImage {
     /* width: 55px; */
     /* height: 55px; */
     /* border-radius: 50%; */
     background: #512DA8;
-    font-size: 39px;
+    font-size: 25px;
     color: #fff;
     /* display: flex; */
     text-align: center;
     cursor: pointer;
-    line-height: 33px;
+    line-height: 40px;
     margin: 0px 0;
     /* justify-content: center; */
+}
+.dropdown-menu{
+    left: -180% !important;
+}
+.dropdown-item:hover{
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    color: black !important;
+}
+
+/* profile page */
+
+.profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container2{
+    min-width: 350px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Example shadow for better visibility */
+    width: 100%; /* Adjust width as necessary, or set max-width for larger screens */
+    max-width: 650px;
+}
+.text-sm{
+    font-size: small;
 }

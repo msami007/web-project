@@ -28,7 +28,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('palette-dash')">
+                        <x-dropdown-link :href="route('palette.dash')">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
 
