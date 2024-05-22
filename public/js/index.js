@@ -27,6 +27,49 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function loadContent(contentType) {
+    if (contentType === 'palettes') {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        fetch('/dashboard/palettes', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const contentDiv = document.getElementById('dashboardContent');
+            contentDiv.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Error fetching palettes:', error);
+        });
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const paletteLink = document.querySelector('.nav-link[href="#"][onclick="loadContent(\'palettes\')"]');
+    const dialog = document.getElementById('view');
+    const openDialogButton = document.getElementById('view');
+    const closeDialogButton = document.getElementById('closeDialog');
+    openDialogButton.addEventListener('click',function (){
+        dialog.showModal();
+    });
+
+    closeDialogButton.addEventListener('click', function (){
+        dialog.close();
+    });
+
+    paletteLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('palettes');
+    });
+});
+
+
 // profile picture 
 fetch('/api/user')
     .then(response => response.json())

@@ -22,6 +22,14 @@ class palette extends Controller
     if (Auth::check()) {
         // Retrieve the authenticated user's email
         $email = Auth::user()->email;
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'hex1' => 'required|string|max:7',
+            'hex2' => 'required|string|max:7',
+            'hex3' => 'required|string|max:7',
+            'hex4' => 'required|string|max:7',
+            'hex5' => 'required|string|max:7',
+        ]);
 
         // Now you have the email, proceed with saving the palette
         $palette = new \App\Models\Palette([

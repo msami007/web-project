@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\dashboard;
 use App\Http\Controllers\palette;
 use App\Http\Controllers\ProfileController;
@@ -19,8 +18,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/palette-generator',[palette::class,'index'])->name('palatte.page');
+    // Route::get('/user-palettes', [dashboard::class, 'getUserPalettes'])->name('user.palettes');
+    Route::get('/dashboard/palettes', [dashboard::class, 'fetchPalettes'])->name('dashboard.palettes');
     Route::post('/palette-generator',[palette::class,'save'])->name('palatte.page');
+    Route::delete('/palettes/{id}', [dashboard::class, 'deletePalette'])->name('palettes.delete');
 });
+Route::middleware('auth')->get('/user-palettes', [dashboard::class, 'getUserPalettes']);
 
 Route::middleware('auth')->get('/api/user', function () {
     return response()->json([

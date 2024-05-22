@@ -4,7 +4,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
     </nav>
-    <a class="btn gen-btn hover " href="#"><i class="fa fa-eye mr-2"></i>View</a>
+    <a class="btn gen-btn hover " id="view" href="#"><i class="fa fa-eye mr-2"></i>View</a>
     <a class="btn gen-btn hover" id="savePaletteBtn" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="far fa-heart mr-2"></i>Save</a>
 
 <!-- Modal -->
@@ -22,7 +22,7 @@
           @csrf
           <div class="form-group">
             <label for="">Name</label>
-            <input type="text" name="name" id="" class="form-control" placeholder="Enter palette name" aria-describedby="helpId">
+            <input type="text" name="name" id="" class="form-control" placeholder="Enter palette name" aria-describedby="helpId" required>
           </div>
           <input type="hidden" name="hex1" id="color1">
           <input type="hidden" name="hex2" id="color2">
@@ -39,5 +39,9 @@
     </div>
   </div>
 </div>
+<dialog id="view">
+  <div id="colorDisplay" class="mt-3" style="width: 100%; height: 50px;"></div>
+  <button id="closeDialog">Close</button>
+</dialog>
   </div>
 </div>
