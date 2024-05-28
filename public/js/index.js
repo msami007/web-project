@@ -21,16 +21,14 @@ function updateActiveLink(content) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Set default content load for Profile if none is active
     if (!document.querySelector('.dash-nav-item a.active')) {
-        loadContent('profile'); // Load profile by default
+        loadContent('profile');
     }
 });
 
 function loadContent(contentType) {
     if (contentType === 'palettes') {
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
         fetch('/dashboard/palettes', {
             method: 'GET',
             headers: {
@@ -49,28 +47,14 @@ function loadContent(contentType) {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const paletteLink = document.querySelector('.nav-link[href="#"][onclick="loadContent(\'palettes\')"]');
-    const dialog = document.getElementById('view');
-    const openDialogButton = document.getElementById('view');
-    const closeDialogButton = document.getElementById('closeDialog');
-    openDialogButton.addEventListener('click',function (){
-        dialog.showModal();
-    });
-
-    closeDialogButton.addEventListener('click', function (){
-        dialog.close();
-    });
-
     paletteLink.addEventListener('click', function(event) {
         event.preventDefault();
         loadContent('palettes');
     });
 });
 
-
-// profile picture 
 fetch('/api/user')
     .then(response => response.json())
     .then(user => {
@@ -82,8 +66,6 @@ fetch('/api/user')
         });
     })
     .catch(error => console.error('Error fetching user data:', error));
-
-// palette page -------------------------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function() {
     generateColors();
@@ -99,9 +81,11 @@ function generateColors() {
     var palette = document.getElementById('color-palette');
     var colors = palette.querySelectorAll('.color');
     colors.forEach(function(color) {
-        var generatedColor = getRandomColor();
-        color.style.backgroundColor = generatedColor;
-        updateColorInfo(color, generatedColor);
+        if (!color.classList.contains('locked')) {
+            var generatedColor = getRandomColor();
+            color.style.backgroundColor = generatedColor;
+            updateColorInfo(color, generatedColor);
+        }
     });
 }
 
@@ -115,21 +99,30 @@ function getRandomColor() {
 }
 
 function updateColorInfo(colorElement, color) {
-var hexCode = colorElement.querySelector('.hex-code');
-var colorName = colorElement.querySelector('.color-name');
+    var hexCode = colorElement.querySelector('.hex-code');
+    var colorName = colorElement.querySelector('.color-name');
+    var icons = colorElement.querySelectorAll('.color-icons i'); // Assuming icons are <i> elements inside .color-icons
 
-hexCode.textContent = color; // Set hex code text
+    hexCode.textContent = color;
 
-// Fetch color name from The Color API
-fetch(`https://www.thecolorapi.com/id?hex=${color.substring(1)}`) // Remove '#' for API call
-   .then(response => response.json())
-   .then(data => {
-       colorName.textContent = data.name.value; // Set color name from API response
-   })
-   .catch(error => {
-       console.error('Error fetching color name:', error);
-       colorName.textContent = 'Unknown'; // Fallback text
-   });
+    // Determine text and icons color based on background color
+    var textColor = tinycolor(color).isLight() ? 'black' : 'white';
+
+    hexCode.style.color = textColor;
+    colorName.style.color = textColor;
+    icons.forEach(icon => {
+        icon.style.color = textColor;
+    });
+
+    fetch(`https://www.thecolorapi.com/id?hex=${color.substring(1)}`)
+       .then(response => response.json())
+       .then(data => {
+           colorName.textContent = data.name.value;
+       })
+       .catch(error => {
+           console.error('Error fetching color name:', error);
+           colorName.textContent = 'Unknown';
+       });
 }
 
 document.getElementById('color-palette').addEventListener('click', function(event) {
@@ -159,6 +152,14 @@ document.getElementById('color-palette').addEventListener('click', function(even
         var icon = event.target;
         icon.classList.toggle('fa-unlock-alt');
         icon.classList.toggle('fa-lock');
+
+        if (icon.classList.contains('fa-lock')) {
+            icon.style.display = 'block';
+            colorElement.classList.add('locked');
+        } else {
+            icon.style.display = '';
+            colorElement.classList.remove('locked');
+        }
     } else if (event.target.classList.contains('color-hexcode')) {
         copyToClipboard(hexCode);
     }
@@ -167,7 +168,6 @@ document.getElementById('color-palette').addEventListener('click', function(even
 function showColorShades(colorElement, hexCode) {
     var shadesContainer = colorElement.querySelector('.color-shades-container');
 
-    // Check if shades are already generated
     if (!colorElement.dataset.shadesGenerated) {
         shadesContainer.innerHTML = '';
         generateShades(colorElement, hexCode);
@@ -181,10 +181,8 @@ function generateShades(colorElement, hexCode) {
     var shadesContainer = colorElement.querySelector('.color-shades-container');
     var color = tinycolor(hexCode);
 
-    // Clear previous shades
     shadesContainer.innerHTML = '';
 
-    // Generate light shades
     for (var i = 10; i >= 0; i--) {
         var shade = color.clone().lighten(i * 5).toHexString();
         var shadeElement = document.createElement('div');
@@ -194,7 +192,6 @@ function generateShades(colorElement, hexCode) {
         shadesContainer.appendChild(shadeElement);
     }
 
-    // Generate dark shades
     for (var i = 1; i <= 10; i++) {
         var shade = color.clone().darken(i * 5).toHexString();
         var shadeElement = document.createElement('div');
@@ -204,7 +201,6 @@ function generateShades(colorElement, hexCode) {
         shadesContainer.appendChild(shadeElement);
     }
 
-    // Event delegation for shade clicks
     shadesContainer.addEventListener('click', function(event) {
         var shadeElement = event.target;
         if (shadeElement.classList.contains('color-shade')) {
@@ -222,7 +218,7 @@ function applyShade(colorElement, hexCode) {
 
     colorElement.style.backgroundColor = hexCode;
     hexCodeDiv.textContent = hexCode;
-    colorNameDiv.textContent = ntc.name(hexCode)[1];
+    colorNameDiv.textContent = ntc.name(hexCode)[1]; // Assuming ntc.name() returns an array with the color name at index 1
 
     // Hide the shades container after selecting a shade
     colorElement.querySelector('.color-shades-container').style.display = 'none';
@@ -239,30 +235,85 @@ function copyToClipboard(text) {
     document.execCommand('copy');
     document.body.removeChild(dummy);
 }
+
 document.getElementById('savePaletteBtn').addEventListener('click', function() {
     var colors = document.querySelectorAll('.color-palette .color .hex-code');
-    var colorDisplay = document.getElementById('colorDisplay');
-    colorDisplay.innerHTML = ''; // Clear previous colors
-    var arr= [];
-    var i = 0;
-    colors.forEach(function(hexCodeElement) {
-        var colorBox = document.createElement('div');
-        colorBox.className = 'color-display-box';
-        colorBox.style.backgroundColor = hexCodeElement.textContent;
-        arr[i] = hexCodeElement.textContent;
-        i++;
-        colorDisplay.appendChild(colorBox);
+    var colorDisplays = document.querySelectorAll('.colorDisplay');
+    colorDisplays.forEach(colorDisplay => {
+        colorDisplay.innerHTML = ''; // Clear previous colors
+        colors.forEach(hexCodeElement => {
+            var colorBox = document.createElement('div');
+            colorBox.className = 'color-display-box';
+            colorBox.style.backgroundColor = hexCodeElement.textContent;
+            // colorBox.style.width = '50px';
+            // colorBox.style.height = '50px';
+            // colorBox.style.display = 'inline-block';
+            // colorBox.style.margin = '2px';
+            colorDisplay.appendChild(colorBox);
+        });
     });
     console.log(arr);
-if (arr.length >= 5) {
-    document.getElementById('color1').value = arr[0];
-    document.getElementById('color2').value = arr[1];
-    document.getElementById('color3').value = arr[2];
-    document.getElementById('color4').value = arr[3];
-    document.getElementById('color5').value = arr[4];
-}
+    if (arr.length >= 5) {
+        document.getElementById('color1').value = arr[0];
+        document.getElementById('color2').value = arr[1];
+        document.getElementById('color3').value = arr[2];
+        document.getElementById('color4').value = arr[3];
+        document.getElementById('color5').value = arr[4];
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    attachColorClickHandlers();
 });
 
+function attachColorClickHandlers() {
+    document.querySelectorAll('.colorDisplay').forEach(colorDisplay => {
+        colorDisplay.addEventListener('click', function(event) {
+            var colorDiv = event.target;
+            if (colorDiv.style.backgroundColor) {
+                var hexColor = tinycolor(colorDiv.style.backgroundColor).toHexString();
+                var modalBody = this.closest('.modal-body');
+                fetchColorData(hexColor, modalBody);
+            }
+        });
+    });
 
+    // Setup to handle modal shown event if using Bootstrap modals
+    $('.modal').on('shown.bs.modal', function () {
+        displayFirstColorDetails(this);
+    });
+}
 
+function displayFirstColorDetails(modal) {
+    const colorDisplay = modal.querySelector('.colorDisplay');
+    if (colorDisplay) {
+        const firstColorDiv = colorDisplay.querySelector('div');
+        if (firstColorDiv && firstColorDiv.style.backgroundColor) {
+            var firstHexColor = tinycolor(firstColorDiv.style.backgroundColor).toHexString();
+            var modalBody = colorDisplay.closest('.modal-body');
+            fetchColorData(firstHexColor, modalBody);
+        }
+    }
+}
 
+function fetchColorData(hexColor, modalBody) {
+    fetch(`https://www.thecolorapi.com/id?hex=${hexColor.substring(1)}`)
+        .then(response => response.json())
+        .then(data => {
+            updateModalContent(data, modalBody);
+        })
+        .catch(error => {
+            console.error('Error fetching color data:', error);
+        });
+}
+
+function updateModalContent(colorData, modalBody) {
+    var viewBody = modalBody.querySelector('#viewBody');
+    if (viewBody) {
+        viewBody.innerHTML = `
+            <p>Hex: ${colorData.hex.value}</p>
+            <p>RGB: ${colorData.rgb.value}</p>
+            <p>HSL: ${colorData.hsl.value}</p>
+            <p>Name: ${colorData.name.value}</p>
+        `;
+    }
+}

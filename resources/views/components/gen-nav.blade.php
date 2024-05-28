@@ -4,11 +4,14 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
     </nav>
-    <a class="btn gen-btn hover " id="view" href="#"><i class="fa fa-eye mr-2"></i>View</a>
-    <a class="btn gen-btn hover" id="savePaletteBtn" data-toggle="modal" data-target="#exampleModalCenter" href="#"><i class="far fa-heart mr-2"></i>Save</a>
+    <a class="btn gen-btn hover " id="view" data-toggle="modal" data-target="#ViewModal" href="#"><i class="fa fa-eye mr-2"></i>View</a>
+    <a class="btn gen-btn hover" id="savePaletteBtn" data-toggle="modal" data-target="#SaveModal" href="#"><i class="far fa-heart mr-2"></i>Save</a>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+<x-view-com/>
+
+<div class="modal fade" id="SaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -29,7 +32,7 @@
           <input type="hidden" name="hex3" id="color3">
           <input type="hidden" name="hex4" id="color4">
           <input type="hidden" name="hex5" id="color5">
-          <div id="colorDisplay" class="mt-3" style="width: 100%; height: 50px;"></div>
+          <div id="" class="mt-3 colorDisplay" style="width: 100%; height: 50px;"></div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Save</button>
           </div>
@@ -39,9 +42,5 @@
     </div>
   </div>
 </div>
-<dialog id="view">
-  <div id="colorDisplay" class="mt-3" style="width: 100%; height: 50px;"></div>
-  <button id="closeDialog">Close</button>
-</dialog>
   </div>
 </div>

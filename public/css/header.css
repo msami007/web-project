@@ -204,6 +204,14 @@ body, html {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.color.locked .color-icons {
+    display: block; /* Always show icons when locked */
+}
+
+.color.locked .color-icons {
+    display: flex; /* Show icons on hover for unlocked colors */
+    flex-direction: column;
+}
 .gen-btn{
     color: #000;
 }
@@ -267,8 +275,12 @@ body, html {
     cursor: pointer;
 }
 .color-display-box {
-    width: 50px;
+    width: 20%;
     height: 50px;
     display: inline-block;
-    margin: 2px;
+    /* margin: 2px; */
+}
+.colorDisplay{
+    border-radius: 10px;
+    overflow: hidden;
 }

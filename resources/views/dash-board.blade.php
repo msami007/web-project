@@ -37,7 +37,7 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">View</a>
+                                            <a class="dropdown-item"data-toggle="modal" data-target="#ViewModal" href="#"><i class="fa fa-eye mr-2"></i>View</a>
                                             <form action="{{ route('palettes.delete', $palette->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -46,7 +46,7 @@
                                         </div>
                                       </div>
 
-                                </div>
+                                    </div>
                                 <div class="d-flex">
                                     <div style="background-color: {{ $palette->hex1 }}; width: 20%; height: 50px;"></div>
                                     <div style="background-color: {{ $palette->hex2 }}; width: 20%; height: 50px;"></div>
@@ -57,6 +57,7 @@
                             </div>
                         </div>
                     </div>
+                    {{-- <x-view-com/> --}}
                 @endforeach
             </div>
         </div>

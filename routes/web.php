@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,7 +29,8 @@ Route::middleware('auth')->get('/api/user', function () {
     return response()->json([
         'id' => Auth::user()->id,
         'name' => Auth::user()->name,
-        'email' => Auth::user()->email
+        'email' => Auth::user()->email,
+        redirect(route('home'))
     ]);
 });
 
