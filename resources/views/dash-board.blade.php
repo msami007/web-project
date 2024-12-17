@@ -6,17 +6,17 @@
     <div class="sidebar d-flex flex-column dash-border" style="height: 100%;">
         <ul class="nav flex-column flex-grow-1">
             <li class="nav-item dash-nav-item my-3">
-                <a class="nav-link d-flex px-3 py-2 mr-4 {{ request()->is('dashboard/palette') || request()->is('dashboard') ? 'active' : '' }}" href="#" onclick="loadContent('palettes')">
+                <a class="nav-link d-flex px-3 py-2 mr-4 {{ request()->is('dashboard/palette') || request()->is('dashboard') ? 'active' : '' }}" href="{{route('dashboard.palettes')}}" onclick="loadContent('palettes')">
                     <img src="{{ asset('svg/palette.svg') }}" alt="Description of SVG" style="vertical-align: middle;">
                     <span class="ml-3 mr-5">Palettes</span>
                 </a>
             </li>
-            <li class="nav-item dash-nav-item my-3">
+            {{-- <li class="nav-item dash-nav-item my-3">
                 <a class="nav-link d-flex px-3 py-2 mr-4 {{ request()->is('dashboard/library') ? 'active' : '' }}" href="#" onclick="loadContent('library')">
                     <img src="{{ asset('svg/library.svg') }}" alt="Description of SVG" style="vertical-align: middle;">
                     <span class="ml-3 mr-5">Library</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <button class="btn btn-primary mt-auto mb-3 dash-nav-item" type="button" onclick="newAction()"><a href="{{route('palatte.page')}}" style="color: white">New <img src="{{ asset('svg/plus.svg') }}" alt="Description of SVG" style="vertical-align: middle;"></a></button>
     </div>

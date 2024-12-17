@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/palette-generator',[palette::class,'index'])->name('palatte.page');
+    Route::get('/mono-generator',[palette::class,'mono'])->name('mono.page');
     // Route::get('/user-palettes', [dashboard::class, 'getUserPalettes'])->name('user.palettes');
     Route::get('/dashboard/palettes', [dashboard::class, 'fetchPalettes'])->name('dashboard.palettes');
     Route::post('/palette-generator',[palette::class,'save'])->name('palatte.page');

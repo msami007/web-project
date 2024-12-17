@@ -14,24 +14,26 @@ class palette extends Controller
         return view('palette');
     }
 
+    public function mono(){
+        return view('mono');
+    } 
+
     /**
      * Show the form for creating a new resource.
      */
     public function save(Request $request)
 {
     if (Auth::check()) {
-        // Retrieve the authenticated user's email
         $email = Auth::user()->email;
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'hex1' => 'required|string|max:7',
-            'hex2' => 'required|string|max:7',
-            'hex3' => 'required|string|max:7',
-            'hex4' => 'required|string|max:7',
-            'hex5' => 'required|string|max:7',
+            'hex1' => 'required|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
+            'hex2' => 'required|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
+            'hex3' => 'required|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
+            'hex4' => 'required|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
+            'hex5' => 'required|string|size:7|regex:/^#[0-9A-Fa-f]{6}$/',
         ]);
 
-        // Now you have the email, proceed with saving the palette
         $palette = new \App\Models\Palette([
             'name' => $request->input('name'),
             'hex1' => $request->input('hex1'),
@@ -42,11 +44,13 @@ class palette extends Controller
             'email' => $email,
         ]);
 
-        $palette->save();
-
-        return view('palette');
+        try {
+            $palette->save();
+            return redirect()->route('palette.index')->with('success', 'Palette saved successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to save the palette. Please try again.');
+        }
     } else {
-        // User is not authenticated, handle accordingly
         return redirect()->route('login')->with('error', 'Please log in to save the palette.');
     }
 }

@@ -241,15 +241,19 @@ document.getElementById('savePaletteBtn').addEventListener('click', function() {
     var colorDisplays = document.querySelectorAll('.colorDisplay');
     colorDisplays.forEach(colorDisplay => {
         colorDisplay.innerHTML = ''; // Clear previous colors
+        var i = 0;
         colors.forEach(hexCodeElement => {
             var colorBox = document.createElement('div');
+            i++;
             colorBox.className = 'color-display-box';
             colorBox.style.backgroundColor = hexCodeElement.textContent;
+            // console.log(hexCodeElement.textContent);
             // colorBox.style.width = '50px';
             // colorBox.style.height = '50px';
             // colorBox.style.display = 'inline-block';
             // colorBox.style.margin = '2px';
             colorDisplay.appendChild(colorBox);
+            document.getElementById('color' + i).value = hexCodeElement.textContent;
         });
     });
     console.log(arr);
@@ -317,3 +321,72 @@ function updateModalContent(colorData, modalBody) {
         `;
     }
 }
+
+// monochromatic---------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    generateMonochromaticPalette();
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space') {
+        generateMonochromaticPalette();
+    }
+});
+
+function generateMonochromaticPalette() {
+    var palette = document.getElementById('color-palette1');
+    var colors = palette.querySelectorAll('.color1');
+    var baseColor = generateBaseColor(); // Get a random base color for the monochromatic palette
+
+    colors.forEach(function(color, index) {
+        if (!color.classList.contains('locked')) {
+            var adjustedColor = generateShade(baseColor, index * -10); // Adjust color to get shades
+            color.style.backgroundColor = adjustedColor;
+            updateColorDetails(color, adjustedColor);
+        }
+    });
+}
+
+function generateBaseColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function generateShade(color, luminance) {
+    // Adjust the luminance of the color to create a monochromatic effect
+    return chroma(color).brighten(luminance / 10).hex();
+}
+
+function updateColorDetails(colorElement, color) {
+    var hexCode = colorElement.querySelector('.hex-code1');
+    var colorName = colorElement.querySelector('.color-name1');
+    var icons = colorElement.querySelectorAll('.color-icons1 i'); // Assuming icons are <i> elements inside .color-icons
+
+    hexCode.textContent = color;
+
+    // Determine text and icons color based on background color
+    var textColor = tinycolor(color).isLight() ? 'black' : 'white';
+
+    hexCode.style.color = textColor;
+    colorName.style.color = textColor;
+    icons.forEach(icon => {
+        icon.style.color = textColor;
+    });
+
+    fetch(`https://www.thecolorapi.com/id?hex=${color.substring(1)}`)
+       .then(response => response.json())
+       .then(data => {
+           colorName.textContent = data.name.value;
+       })
+       .catch(error => {
+           console.error('Error fetching color name:', error);
+           colorName.textContent = 'Unknown';
+       });
+}
+
+// The rest of your existing code remains unchanged
